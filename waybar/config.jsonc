@@ -1,0 +1,294 @@
+{
+    // "layer": "top", // Waybar at top layer
+    // "position": "bottom", // Waybar position (top|bottom|left|right)
+    "height": 25, // Waybar height (to be removed for auto height)
+    // "width": 1280, // Waybar width
+    "spacing": 8, // Gaps between modules (4px)
+    // Choose the order of the modules
+    "margin-top": 8, // Margin top
+    "margin-bottom": 0, // Margin bottom
+    "margin-left": 8, // Margin left
+    "margin-right": 8, // Margin right
+    "padding": 8,
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "reload_style_on_change": true,
+     // Padding between the bar and the modules
+    "modules-left": [
+        "clock",
+        "mpris",
+        // "network",
+        "sway/mode",
+        "sway/scratchpad",
+        "custom/media"
+    ],
+    "modules-center": [
+        "hyprland/workspaces" // Removed trailing comma
+    ],
+    "modules-right": [
+        "mpd",
+        "pulseaudio",
+        "pulseaudio#mic", // Add the new mic module here
+        "backlight",
+        "keyboard-state",
+        "sway/language",
+        "battery",
+        "power-profiles-daemon",
+        "group/expand"
+    ],
+
+    "custom/blank-spacer":{
+        "format": " " // Removed trailing comma
+    },
+
+    "custom/spacer":{
+        "format": " | "
+    },
+
+    "mpris": {
+        "format": "{player_icon} {dynamic}",
+        "format-paused": "<span color='grey'>{status_icon} {dynamic}</span>",
+        "max-length": 50,
+        "max-width": 50,
+        "player-icons": {
+            "default": "⏸",
+            "mpv": "🎵"
+        },
+        "status-icons": {
+            "paused": "▶" 
+        },
+        // "ignored-players": ["firefox"]
+    },
+
+    // "tray": {
+    //     "icon-size": 16,
+    //     "rotate": 0,
+    //     "spacing": 3
+    // },
+
+    "custom/menu":{
+        "format": " ",
+        "tooltip": false
+    },
+
+   "group/expand": {
+     "orientation": "horizontal",
+     "on-click": "toggle",
+     "drawer": {
+         "transition-duration": 600,
+         "children-class": "not-power",
+        "transition-to-left": true,
+        "click-to-reveal": true
+     },
+     "modules": ["custom/menu","custom/spacer","tray","custom/blank-spacer", "custom/blank-spacer", "custom/power"],
+   },
+
+    // Modules configuration
+    "hyprland/workspaces": {
+        "format": "{icon}",
+        "on-scroll-up": "hyprctl dispatch workspace e+1",
+        "on-scroll-down": "hyprctl dispatch workspace e-1"
+    },
+    "hyprland/window": {
+        "separate-outputs": true
+    },
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+    "sway/mode": {
+        "format": "<span style=\"italic\">{}</span>"
+    },
+    "sway/scratchpad": {
+        "format": "{icon} {count}",
+        "show-empty": false,
+        "format-icons": ["", ""],
+        "tooltip": true,
+        "tooltip-format": "{app}: {title}"
+    },
+    "mpd": {
+        "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon}{artist} - {album} - {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ⸨{songPosition}|{queueLength}⸩ {volume}% ",
+        "format-disconnected": "Disconnected ",
+        "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+        "unknown-tag": "N/A",
+        "interval": 5,
+        "consume-icons": {
+            "on": " "
+        },
+        "random-icons": {
+            "off": "<span color=\"#f53c3c\"></span> ",
+            "on": " "
+        },
+        "repeat-icons": {
+            "on": " "
+        },
+        "single-icons": {
+            "on": "1 "
+        },
+        "state-icons": {
+            "paused": "",
+            "playing": ""
+        },
+        "tooltip-format": "MPD (connected)",
+        "tooltip-format-disconnected": "MPD (disconnected)"
+    },
+    "idle_inhibitor": {
+        "format": "{icon}",
+        "format-icons": {
+            "activated": "",
+            "deactivated": ""
+        }
+    },
+    "tray": {
+        "icon-size": 18,
+        "spacing": 10,
+        "hidden-items": ["nm-applet"],
+        // "icons": {
+        //   "blueman": "bluetooth",
+        //   "TelegramDesktop": "$HOME/.local/share/icons/hicolor/16x16/apps/telegram.png"
+        // }
+    },
+    "clock": {
+        // "timezone": "Europe/Paris",
+        "format-alt": "[ 󰥔  {:%H:%M:%S | %d-%m-%Y} ]",
+        "interval": 1,
+        // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
+        "format": "[ 󰥔  {:%H:%M} ]",
+        "rotate": 0,
+        "on-click": "/usr/local/bin/ags -t ActivityCenter",
+        "actions": {
+            "on-click-right": "mode",
+            "on-click-forward": "tz_up",
+            "on-click-backward": "tz_down",
+            "on-scroll-up": "shift_up",
+            "on-scroll-down": "shift_down"
+        },
+        "tooltip": false
+    },
+    "cpu": {
+        "format": "  {usage}%",
+        "tooltip": false
+    },
+    "memory": {
+        "format": "  {}%"
+    },
+    "backlight": {
+        // "device": "acpi_video1",
+        "format": "[ {icon} {percent}% ]",
+        "tooltip": false,
+        "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩕", "󰛨"]
+    },
+    "battery": {
+        "states": {
+            // "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "[ {icon} {capacity}% ]",
+        "format-full": "[ {icon} {capacity}% ]",
+        "format-charging": "[ 󰂄 {capacity}% ]",
+        "format-plugged": "[   {capacity}% ]",
+        "format-alt": "[ {icon} {time} ]",
+        // "format-good": "", // An empty format will hide the module
+        // "format-full": "",
+        "format-icons": [
+            "󰁺",
+            "󰁻",
+            "󰁼",
+            "󰁽",
+            "󰁾",
+            "󰁿",
+            "󰂀",
+            "󰂁",
+            "󰂂",
+            "󰁹"
+        ]
+    },
+    // "battery#bat2": {
+    //     "bat": "BAT2"
+    // },
+    "power-profiles-daemon": {
+      "format": "{icon}",
+      "tooltip-format": "Power profile: {profile}",
+      "tooltip": true,
+      "format-icons": {
+        "default": "[ ? ]",
+        "performance": "[ 󰚤 ]",
+        "balanced": "[   ]",
+        "power-saver": "[  ]"
+      }
+    },
+    "network": {
+        "format-wifi": "{icon}",
+        "format-ethernet": "󰈀",
+        "tooltip-format": "{ifname}: {signalStrength}%",
+        "tooltip-format-ethernet": "{ifname}: {ipaddr}/{cidr}", // Corrected syntax
+        "format-disconnected": "󰌙",
+        "format-icons": ["󰤯", "󰤟", "󰤢", "󰤥", "󰤨"],
+        "on-click": "nm-connection-editor",
+        "icon-size": 16
+    },
+    "pulseaudio": {
+        // "scroll-step": 1, // %, can be a float
+        "format": "[ {icon} {volume}% ]", // Removed {format_source}
+        "format-bluetooth": "[ {icon} 󰥰 {volume}% ]", // Removed {format_source}
+        "format-bluetooth-muted": "[   {icon}  ]", // Removed {format_source}
+        "format-muted": "[   ]", // Removed {format_source}
+        "format-source": "[ {volume}%  ]", // Removed source format
+        "format-source-muted": "", // Removed muted source format
+        "format-icons": {
+            "headphone": "󰋋",
+            "hands-free": "",
+            "headset": "󰋎",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": [" ", " ", " "]
+        },
+        "on-click": "pavucontrol",
+        "on-click-right": "pamixer -t",
+        "on-scroll-up": "pamixer -i 5",
+        "on-scroll-down": "pamixer -d 5"
+    },
+    "pulseaudio#mic": { // Configuration for the microphone module
+        "format": "{format_source}",
+        "format-source": "[  {volume}% ]",
+        "format-source-muted": "[   ]",
+        "tooltip": false,
+        "on-click": "pavucontrol",
+        "on-click-right": "pamixer --default-source -t",
+        "on-scroll-up": "pamixer --default-source -i 5",
+        "on-scroll-down": "pamixer --default-source -d 5"
+    },
+    "custom/media": {
+        "format": "{icon} {text}",
+        "return-type": "json",
+        "max-length": 40,
+        "format-icons": {
+            "spotify": "",
+            "default": "🎜"
+        },
+        "escape": true,
+        "exec": "$HOME/.config/waybar/mediaplayer.py 2> /dev/null"
+        // "exec": "$HOME/.config/waybar/mediaplayer.py --player spotify 2> /dev/null" // Filter player based on name
+    },
+    "custom/power": {
+        "format" : " ",
+        "icon-size": 18,
+		"tooltip": false,
+		"menu": "on-click",
+		"menu-file": "$HOME/.config/waybar/power_menu.xml",
+		"menu-actions": {
+			"shutdown": "shutdown -h now",
+			"reboot": "reboot",
+			"suspend": "systemctl suspend",
+			"hibernate": "systemctl hibernate"
+		},
+    }
+}
