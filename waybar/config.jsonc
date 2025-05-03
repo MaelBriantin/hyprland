@@ -236,6 +236,7 @@
         "format-full": "󰁹 [ FULL ]",
         "format-charging": "󰂄 [ {icon} ]",
         "format-plugged": " [ PLUGGED ]",
+        "format-critical": "󰁹 [ WARNING ]",
         "format-alt": "󰁹 [ {capacity}/100 ]",
         "format-good": "", // An empty format will hide the module
         // "format-icons": [
@@ -251,6 +252,7 @@
         //     "󰁹"
         // ],
         "format-icons": [
+            "▒▒▒▒▒▒▒▒▒▒",
             "█▒▒▒▒▒▒▒▒▒",
             "██▒▒▒▒▒▒▒▒",
             "███▒▒▒▒▒▒▒",
@@ -293,6 +295,7 @@
         // "format-bluetooth": "[ {icon} 󰥰 {volume}% ]", // Removed {format_source}
         // "format-bluetooth-muted": "[   {icon}  ]", // Removed {format_source}
         "format-muted": "  [ MUTED ]", // Removed {format_source}
+	    "max-volume": "150", // Maximum volume
         // "format-source": "[ {volume}%  ]", // Removed source format
         // "format-source-muted": "", // Removed muted source format
         // "format-icons": {
@@ -305,7 +308,7 @@
         //     "default": [" ", " ", " "]
         // },
         "format-icons": [
-            "▒▒▒▒▒▒▒▒▒▒",        
+            "▒▒▒▒▒▒▒▒▒▒",       
             "█▒▒▒▒▒▒▒▒▒",
             "██▒▒▒▒▒▒▒▒",
             "███▒▒▒▒▒▒▒",
@@ -315,11 +318,12 @@
             "███████▒▒▒",
             "████████▒▒",
             "█████████▒",
-            "██████████"
+            "██████████",
         ],
         "on-click": "pavucontrol",
         "on-click-right": "pamixer -t",
-        "on-scroll-up": "pamixer -i 5",
+        "on-click-middle": "pamixer --allow-boost --set-volume 150",
+        "on-scroll-up": "pamixer --allow-boost -i 5",
         "on-scroll-down": "pamixer -d 5"
     },
     "pulseaudio#mic": { // Configuration for the microphone module
