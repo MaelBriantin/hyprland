@@ -14,7 +14,7 @@
     "passthrough": false,
     "gtk-layer-shell": true,
     "reload_style_on_change": true,
-     // Padding between the bar and the modules
+
     "modules-left": [
         "clock",
         "mpris",
@@ -24,12 +24,12 @@
         "custom/media"
     ],
     "modules-center": [
-        "hyprland/workspaces" // Removed trailing comma
+        "hyprland/workspaces"
     ],
     "modules-right": [
         "mpd",
         "pulseaudio",
-        "pulseaudio#mic", // Add the new mic module here
+        "pulseaudio#mic",
         "backlight",
         "keyboard-state",
         "sway/language",
@@ -39,7 +39,7 @@
     ],
 
     "custom/blank-spacer":{
-        "format": " " // Removed trailing comma
+        "format": " "
     },
 
     "custom/spacer":{
@@ -49,6 +49,7 @@
     "mpris": {
         "format": "{player_icon} {dynamic}",
         "format-paused": "<span color='grey'>{status_icon} {dynamic}</span>",
+        "interval": 1,
         "max-length": 50,
         "max-width": 50,
         "player-icons": {
@@ -68,7 +69,7 @@
     // },
 
     "custom/menu":{
-        "format": " ",
+        "format": "",
         "tooltip": false
     },
 
@@ -81,7 +82,7 @@
         "transition-to-left": true,
         "click-to-reveal": true
      },
-     "modules": ["custom/menu","custom/spacer","tray","custom/blank-spacer", "custom/blank-spacer", "custom/power"],
+     "modules": ["custom/menu","custom/spacer","tray","custom/spacer", "custom/power"],
    },
 
     // Modules configuration
@@ -89,6 +90,28 @@
         "format": "{icon}",
         "on-scroll-up": "hyprctl dispatch workspace e+1",
         "on-scroll-down": "hyprctl dispatch workspace e-1"
+        ,
+        // "format-icons": {
+        //     "1": "⠁",
+        //     "2": "⠃",
+        //     "3": "⠇",
+        //     "4": "⡇",
+        //     "5": "⡏",
+        //     "6": "⡟",
+        //     "7": "⡿",
+        //     "8": "⣿",
+        // },
+        "format-icons": {
+            "1": "一",
+            "2": "二",
+            "3": "三",
+            "4": "四",
+            "5": "五",
+            "6": "六",
+            "7": "七",
+            "8": "八",
+            "9": "九",
+        }
     },
     "hyprland/window": {
         "separate-outputs": true
@@ -182,7 +205,11 @@
         // "device": "acpi_video1",
         "format": "[ {icon} {percent}% ]",
         "tooltip": false,
-        "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩕", "󰛨"]
+        "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩕", "󰛨"],
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "on-click": "brightnessctl -q set +5%",
+        "on-click-right": "brightnessctl -q set 5%-",
     },
     "battery": {
         "states": {
@@ -283,6 +310,7 @@
         "icon-size": 18,
 		"tooltip": false,
 		"menu": "on-click",
+        "on-click": "power-menu",
 		"menu-file": "$HOME/.config/waybar/power_menu.xml",
 		"menu-actions": {
 			"shutdown": "shutdown -h now",

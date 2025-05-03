@@ -2,6 +2,10 @@
 @define-color main-color-07 rgba(100, 120, 140, 0.7);
 @define-color main-color-05 rgba(100, 120, 140, 0.5);
 @define-color main-color-03 rgba(100, 120, 140, 0.3);
+@define-color bg-color rgba(43, 48, 59, 0.9);
+@define-color alert-color rgba(235, 77, 75, 0.75);
+@define-color warning-color rgba(255, 165, 0, 0.75);
+@define-color font-color rgba(242, 243, 244, 0.75);
 
 * {
   /* `otf-font-awesome` is required to be installed for icons */
@@ -11,11 +15,11 @@
 }
 
 window#waybar {
-  background-color: rgba(43, 48, 59, 0.8);
+  background-color: @bg-color;
   /* background-color: rgba(100, 120, 140, 0.5); */
   opacity: 1;
   /* border-bottom: 1px solid rgba(100, 114, 125, 0.5); */
-  color: #000000;
+  color: @font-color;
   transition-property: background-color;
   transition-duration: 0.5s;
   border: 2px solid @main-color;
@@ -29,21 +33,7 @@ window#waybar.hidden {
   opacity: 0.2;
 }
 
-/*
-window#waybar.empty {
-    background-color: transparent;
-}
-window#waybar.solo {
-    background-color: #FFFFFF;
-}
-*/
-
-window#waybar.termite {
-  /* background-color: #3f3f3f; */
-}
-
 window#waybar.chromium {
-  /* background-color: #000000; */
   border: none;
 }
 
@@ -61,54 +51,69 @@ button {
 button:hover {
   border: 2px solid @main-color;
   background: @main-color;
-  /* box-shadow: inset 0 -3px #ffffff; */
-}
-
-/* you can set a style on hover for any module like this */
-#pulseaudio:hover {
-  /* background-color: #a37800; */
 }
 
 #workspaces {
-  color: @main-color;
+  /*  */
 }
 
 #workspaces button {
   /* padding: 4px 8px; */
   background-color: transparent;
-  color: #000000;
+}
+
+#workspaces button label {
+  color: @font-color;
+}
+
+#workspaces button:hover label {
+  color: rgba(242, 243, 244, 1);
 }
 
 #workspaces button:hover {
+  color: rgba(242, 243, 244, 1);
   background: @main-color-03;
 }
 
 #workspaces button.active {
-  border: 2px solid @main-color;
   background: @main-color;
-  color: #000000;
   /* box-shadow: inset 0 -3px #ffffff; */
 }
 
-#workspaces button.urgent {
-  background-color: #eb4d4b;
-  color: #000000;
+#workspaces button.active label {
+  color: rgba(242, 243, 244, 1);
 }
 
-#mode {
-  background-color: #64727d;
-  box-shadow: inset 0 -3px #ffffff;
+#workspaces button.urgent {
+  background-color: @main-color;
+  animation-name: blink;
+  animation-duration: 0.5s;
+  animation-timing-function: steps(12);
+  animation-iteration-count: infinite;
+  animation-direction: alternate;
 }
 
 #clock:hover,
-#pulseaudio:hover {
-  color: #f5f5f5;
+#pulseaudio:hover,
+#battery:hover,
+#power-profiles-daemon:hover,
+#backlight:hover {
+  color: rgba(242, 243, 244, 1);
   border: 2px solid @main-color-07;
   background: @main-color-03;
   /* Avoid rounded borders under each button name */
   border-radius: 2px;
   padding: 4px 8px;
   margin: 8px 4px;
+}
+
+#custom-menu {
+  padding: 0 8px 0 4px;
+  color: @font-color;
+}
+
+#custom-menu:hover {
+  color: rgba(242, 243, 244, 1);
 }
 
 #clock,
@@ -118,18 +123,16 @@ button:hover {
 #disk,
 #temperature,
 #backlight,
-/* #network, */
 #pulseaudio,
 #wireplumber,
 #custom-media,
-/* #tray, */
 #mode,
 #idle_inhibitor,
 #scratchpad,
 #power-profiles-daemon,
 #expand,
 #mpd {
-  color: #ffffff;
+  color: @font-color;
   border: 2px solid @main-color-07;
   /* Avoid rounded borders under each button name */
   border-radius: 2px;
@@ -140,7 +143,7 @@ button:hover {
 #window,
 #workspaces {
   margin: 0 4px;
-  color: #ffffff;
+  color: @font-color;
 }
 
 /* If workspaces is the leftmost module, omit left margin */
@@ -153,32 +156,22 @@ button:hover {
   margin-right: 8px;
 }
 
-#clock {
-  /* background-color: #64727d; */
-}
-
-#battery {
-  /* background-color: #ffffff; */
-  /* color: #000000; */
-}
-
 #battery.charging,
 #battery.plugged {
-  color: #ffffff;
+  color: @font-color;
   /* background-color: #26a65b; */
 }
 
 @keyframes blink {
   to {
-    background-color: #ffffff;
-    color: #000000;
+    background-color: @bg-color;
   }
 }
 
 /* Using steps() instead of linear as a timing function to limit cpu usage */
 #battery.critical:not(.charging) {
-  background-color: #f53c3c;
-  color: #ffffff;
+  background-color: @alert-color;
+  color: @font-color;
   animation-name: blink;
   animation-duration: 0.5s;
   animation-timing-function: steps(12);
@@ -186,66 +179,17 @@ button:hover {
   animation-direction: alternate;
 }
 
-#power-profiles-daemon {
-  /* padding-right: 15px; */
+#custom-power {
+  color: @alert-color;
 }
 
-#power-profiles-daemon.performance {
-  /* background-color: #f53c3c; */
-  color: #ffffff;
+#custom-power:hover {
+  color: rgba(255, 165, 0, 1);
 }
 
-#power-profiles-daemon.balanced {
-  /* background-color: #2980b9; */
-  color: #ffffff;
-}
-
-#power-profiles-daemon.power-saver {
-  /* background-color: #2ecc71; */
-  /* color: #000000; */
-}
-
-label:focus {
-  /* background-color: #000000; */
-}
-
-#cpu {
-  /* background-color: #2ecc71; */
-  /* color: #000000; */
-}
-
-#memory {
-  /* background-color: #9b59b6; */
-}
-
-#disk {
-  /* background-color: #964b00; */
-}
-
-#backlight {
-  /* background-color: #90b1b1; */
-}
-
-#network {
-  /* background-color: #2980b9; */
-}
-
-#network.disconnected {
-  /* background-color: #f53c3c; */
-}
-
-#pulseaudio {
-  /* background-color: #0069d4; */
-  color: #ffffff;
-}
-
-#wireplumber {
-  /* background-color: #fff0f5; */
-  color: #000000;
-}
-
-#wireplumber.muted {
-  /* background-color: #f53c3c; */
+#tray {
+  padding: 0 8px;
+  margin: 0 4px;
 }
 
 #custom-media {
@@ -254,59 +198,17 @@ label:focus {
   min-width: 100px;
 }
 
-#custom-media.custom-spotify {
-  /* background-color: #66cc99; */
-}
-
-#custom-media.custom-vlc {
-  /* background-color: #ffa000; */
-}
-
-#temperature {
-  /* background-color: #f0932b; */
-}
-
-#temperature.critical {
-  /* background-color: #eb4d4b; */
-}
-
-#tray {
-  /* background-color: #2980b9; */
-}
-
 #tray > .passive {
   -gtk-icon-effect: dim;
 }
 
 #tray > .needs-attention {
   -gtk-icon-effect: highlight;
-  background-color: #eb4d4b;
-}
-
-#idle_inhibitor {
-  /* background-color: #2d3436; */
-}
-
-#idle_inhibitor.activated {
-  /* background-color: #ecf0f1; */
-  color: #2d3436;
+  background-color: @warning-color;
 }
 
 #mpd {
-  /* background-color: #66cc99; */
   color: #2a5c45;
-}
-
-#mpd.disconnected {
-  /* background-color: #f53c3c; */
-}
-
-#mpd.stopped {
-  /* background-color: #90b1b1; */
-}
-
-#mpd.paused {
-  /* background-color: #51a37a; */
 }
 
 #language {
@@ -347,7 +249,7 @@ label:focus {
 
 #privacy-item {
   padding: 0 5px;
-  color: white;
+  color: @font-color;
 }
 
 #privacy-item.screenshare {
@@ -363,30 +265,34 @@ label:focus {
 }
 
 tooltip {
-  background: @main-color-07;
-  color: #ffffff;
+  background: @bg-color;
+  color: rgba(242, 243, 244, 1);
   border-radius: 4px;
-  padding: 4px 8px;
+  border: 2px solid @main-color;
 }
 
 tooltip label {
-  color: #ffffff;
+  color: rgba(242, 243, 244, 1);
+  opacity: 1;
+  padding: 4px 8px;
 }
 
 menu {
-  background: @main-color-07;
-  color: #ffffff;
+  background: @bg-color;
+  color: @font-color;
   border-radius: 4px;
   padding: 4px;
-  border: 1px solid @main-color;
+  border: 2px solid @main-color;
+  font-size: 22px;
 }
 
 menu menuitem {
-  color: #ffffff;
+  color: @font-color;
+  opacity: 0.8;
   padding: 4px 8px;
   border-radius: 2px;
 }
 
 menu menuitem:hover {
-  background: @main-color;
+  opacity: 1;
 }
