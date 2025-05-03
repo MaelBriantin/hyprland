@@ -18,7 +18,6 @@
     "modules-left": [
         "clock",
         "mpris",
-        // "network",
         "sway/mode",
         "sway/scratchpad",
         "custom/media"
@@ -28,8 +27,8 @@
     ],
     "modules-right": [
         "mpd",
-        "pulseaudio",
         "pulseaudio#mic",
+        "pulseaudio",
         "backlight",
         "keyboard-state",
         "sway/language",
@@ -169,7 +168,7 @@
         }
     },
     "tray": {
-        "icon-size": 18,
+        "icon-size": 14,
         "spacing": 10,
         "hidden-items": ["nm-applet"],
         // "icons": {
@@ -179,10 +178,10 @@
     },
     "clock": {
         // "timezone": "Europe/Paris",
-        "format-alt": "[ 󰥔  {:%H:%M:%S | %d-%m-%Y} ]",
+        "format-alt": "󱑈 [ {:%H:%M:%S | %d-%m-%Y} ]",
         "interval": 1,
         // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "[ 󰥔  {:%H:%M} ]",
+        "format": "󱑈 [ {:%H:%M} ]",
         "rotate": 0,
         "on-click": "/usr/local/bin/ags -t ActivityCenter",
         "actions": {
@@ -203,52 +202,79 @@
     },
     "backlight": {
         // "device": "acpi_video1",
-        "format": "[ {icon} {percent}% ]",
+        "format": "󰖨 [ {icon} ]",
+        "format-full": "󰖨 [ {icon} ]",
+        "format-alt": "󰖨 [ {capacity}% ]",
+        "tooltip-format": "󰖨 [ {capacity}% ]",
         "tooltip": false,
-        "format-icons": ["󱩎", "󱩏", "󱩐", "󱩑", "󱩒", "󱩓", "󱩔", "󱩕", "󱩕", "󰛨"],
+        "format-icons": [
+            "▒▒▒▒▒▒▒▒▒▒",
+            "█▒▒▒▒▒▒▒▒▒",
+            "██▒▒▒▒▒▒▒▒",
+            "███▒▒▒▒▒▒▒",
+            "████▒▒▒▒▒▒",
+            "█████▒▒▒▒▒",
+            "██████▒▒▒▒",
+            "███████▒▒▒",
+            "████████▒▒",
+            "█████████▒",
+            "██████████"
+        ],
         "on-scroll-up": "brightnessctl set +5%",
         "on-scroll-down": "brightnessctl set 5%-",
         "on-click": "brightnessctl -q set +5%",
         "on-click-right": "brightnessctl -q set 5%-",
     },
     "battery": {
+        "interval": 5,
         "states": {
             // "good": 95,
             "warning": 30,
             "critical": 15
         },
-        "format": "[ {icon} {capacity}% ]",
-        "format-full": "[ {icon} {capacity}% ]",
-        "format-charging": "[ 󰂄 {capacity}% ]",
-        "format-plugged": "[   {capacity}% ]",
-        "format-alt": "[ {icon} {time} ]",
-        // "format-good": "", // An empty format will hide the module
-        // "format-full": "",
+        "format": "󰁹 [ {icon} ]",
+        "format-full": "󰁹 [ FULL ]",
+        "format-charging": "󰂄 [ {icon} ]",
+        "format-plugged": " [ PLUGGED ]",
+        "format-alt": "󰁹 [ {capacity}/100 ]",
+        "format-good": "", // An empty format will hide the module
+        // "format-icons": [
+        //     "󰁺",
+        //     "󰁻",
+        //     "󰁼",
+        //     "󰁽",
+        //     "󰁾",
+        //     "󰁿",
+        //     "󰂀",
+        //     "󰂁",
+        //     "󰂂",
+        //     "󰁹"
+        // ],
         "format-icons": [
-            "󰁺",
-            "󰁻",
-            "󰁼",
-            "󰁽",
-            "󰁾",
-            "󰁿",
-            "󰂀",
-            "󰂁",
-            "󰂂",
-            "󰁹"
+            "█▒▒▒▒▒▒▒▒▒",
+            "██▒▒▒▒▒▒▒▒",
+            "███▒▒▒▒▒▒▒",
+            "████▒▒▒▒▒▒",
+            "█████▒▒▒▒▒",
+            "██████▒▒▒▒",
+            "███████▒▒▒",
+            "████████▒▒",
+            "█████████▒",
+            "██████████"
         ]
     },
     // "battery#bat2": {
     //     "bat": "BAT2"
     // },
     "power-profiles-daemon": {
-      "format": "{icon}",
+      "format": "󱐋 [ {icon} ]",
       "tooltip-format": "Power profile: {profile}",
       "tooltip": true,
       "format-icons": {
         "default": "[ ? ]",
-        "performance": "[ 󰚤 ]",
-        "balanced": "[   ]",
-        "power-saver": "[  ]"
+        "performance": "MAX",
+        "balanced": "MID",
+        "power-saver": "LOW"
       }
     },
     "network": {
@@ -263,21 +289,34 @@
     },
     "pulseaudio": {
         // "scroll-step": 1, // %, can be a float
-        "format": "[ {icon} {volume}% ]", // Removed {format_source}
-        "format-bluetooth": "[ {icon} 󰥰 {volume}% ]", // Removed {format_source}
-        "format-bluetooth-muted": "[   {icon}  ]", // Removed {format_source}
-        "format-muted": "[   ]", // Removed {format_source}
-        "format-source": "[ {volume}%  ]", // Removed source format
-        "format-source-muted": "", // Removed muted source format
-        "format-icons": {
-            "headphone": "󰋋",
-            "hands-free": "",
-            "headset": "󰋎",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [" ", " ", " "]
-        },
+        "format": "  [ {icon} ]", // Removed {format_source}
+        // "format-bluetooth": "[ {icon} 󰥰 {volume}% ]", // Removed {format_source}
+        // "format-bluetooth-muted": "[   {icon}  ]", // Removed {format_source}
+        "format-muted": "  [ MUTED ]", // Removed {format_source}
+        // "format-source": "[ {volume}%  ]", // Removed source format
+        // "format-source-muted": "", // Removed muted source format
+        // "format-icons": {
+        //     "headphone": "󰋋",
+        //     "hands-free": "",
+        //     "headset": "󰋎",
+        //     "phone": "",
+        //     "portable": "",
+        //     "car": "",
+        //     "default": [" ", " ", " "]
+        // },
+        "format-icons": [
+            "▒▒▒▒▒▒▒▒▒▒",        
+            "█▒▒▒▒▒▒▒▒▒",
+            "██▒▒▒▒▒▒▒▒",
+            "███▒▒▒▒▒▒▒",
+            "████▒▒▒▒▒▒",
+            "█████▒▒▒▒▒",
+            "██████▒▒▒▒",
+            "███████▒▒▒",
+            "████████▒▒",
+            "█████████▒",
+            "██████████"
+        ],
         "on-click": "pavucontrol",
         "on-click-right": "pamixer -t",
         "on-scroll-up": "pamixer -i 5",
@@ -285,13 +324,13 @@
     },
     "pulseaudio#mic": { // Configuration for the microphone module
         "format": "{format_source}",
-        "format-source": "[  {volume}% ]",
-        "format-source-muted": "[   ]",
+        "format-source": " [ ON ]",
+        "format-source-muted": "  [ OFF ]",
         "tooltip": false,
         "on-click": "pavucontrol",
         "on-click-right": "pamixer --default-source -t",
-        "on-scroll-up": "pamixer --default-source -i 5",
-        "on-scroll-down": "pamixer --default-source -d 5"
+        // "on-scroll-up": "pamixer --default-source -i 5",
+        // "on-scroll-down": "pamixer --default-source -d 5",
     },
     "custom/media": {
         "format": "{icon} {text}",
