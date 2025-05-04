@@ -3,7 +3,7 @@
     // "position": "bottom", // Waybar position (top|bottom|left|right)
     "height": 25, // Waybar height (to be removed for auto height)
     // "width": 1280, // Waybar width
-    "spacing": 8, // Gaps between modules (4px)
+    "spacing": 4, // Gaps between modules (4px)
     // Choose the order of the modules
     "margin-top": 8, // Margin top
     "margin-bottom": 0, // Margin bottom
@@ -46,17 +46,18 @@
     },
 
     "mpris": {
-        "format": "{player_icon} {dynamic}",
-        "format-paused": "<span color='grey'>{status_icon} {dynamic}</span>",
-        "interval": 1,
-        "max-length": 50,
+        "format": "{player_icon} | {dynamic}",
+        "format-paused": "<span color='grey'>{status_icon} | {dynamic}</span>",
+        "interval": 0.5,
+        // "max-length": 80,
         "max-width": 50,
+        "dynamic-len": 50,
         "player-icons": {
-            "default": "⏸",
+            "default": "",
             "mpv": "🎵"
         },
         "status-icons": {
-            "paused": "▶" 
+            "paused": "" 
         },
         // "ignored-players": ["firefox"]
     },
@@ -178,10 +179,10 @@
     },
     "clock": {
         // "timezone": "Europe/Paris",
-        "format-alt": "󱑈 [ {:%H:%M:%S | %d-%m-%Y} ]",
+        "format-alt": "󰥔 [ {:%H:%M:%S | %d-%m-%Y} ]",
         "interval": 1,
         // "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format": "󱑈 [ {:%H:%M} ]",
+        "format": "󰥔 [ {:%H:%M} ]",
         "rotate": 0,
         "on-click": "/usr/local/bin/ags -t ActivityCenter",
         "actions": {
@@ -230,7 +231,7 @@
         "states": {
             // "good": 95,
             "warning": 30,
-            "critical": 15
+            "critical": 15,
         },
         "format": "󰁹 [ {icon} ]",
         "format-full": "󰁹 [ FULL ]",
@@ -295,7 +296,7 @@
         // "format-bluetooth": "[ {icon} 󰥰 {volume}% ]", // Removed {format_source}
         // "format-bluetooth-muted": "[   {icon}  ]", // Removed {format_source}
         "format-muted": "  [ MUTED ]", // Removed {format_source}
-	    "max-volume": "150", // Maximum volume
+	    // "max-volume": "150", // Maximum volume
         // "format-source": "[ {volume}%  ]", // Removed source format
         // "format-source-muted": "", // Removed muted source format
         // "format-icons": {
@@ -322,7 +323,7 @@
         ],
         "on-click": "pavucontrol",
         "on-click-right": "pamixer -t",
-        "on-click-middle": "pamixer --allow-boost --set-volume 150",
+        "on-click-middle": "pamixer --allow-boost --set-volume 50",
         "on-scroll-up": "pamixer --allow-boost -i 5",
         "on-scroll-down": "pamixer -d 5"
     },

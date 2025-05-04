@@ -1,16 +1,22 @@
 #!/usr/bin/env bash
 
 # Define the target application executable name
-APP_NAME="ghostty"
-CLIENT_NAME="com.mitchellh.ghostty"
+APP_NAME="zen-browser"
+CLIENT_NAME="zen"
+
+if [[ $(pgrep -f -x "$APP_NAME") ]]; then
+  echo "$APP_NAME is running"
+  exit 1
+fi
+
+# Requires uwsm to be installed
+hyprctl dispatch exec "uwsm app -- $APP_NAME"
 
 # Use pgrep -f to match against the full command line, avoiding the 15-char limit
 if [[ $(pgrep -f -x "$APP_NAME") ]]; then
   echo "$APP_NAME is running"
   exit 1
 fi
-
-hyprctl dispatch exec "uwsm app -- $APP_NAME"
 
 for _ in {1..100}; do
   addr=$(hyprctl clients -j | jq -r --arg app_class "$CLIENT_NAME" '.[] | select(.class == $app_class) | .address')

@@ -9,6 +9,7 @@ if [[ $(pgrep -f -x "$APP_NAME") ]]; then
   exit 1
 fi
 
+# Requires uwsm to be installed
 hyprctl dispatch exec "uwsm app -- $APP_NAME"
 
 # Use pgrep -f to match against the full command line, avoiding the 15-char limit
