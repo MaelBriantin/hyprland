@@ -236,8 +236,8 @@
         "format": "󰁹 [ {icon} ]",
         "format-full": "󰁹 [ FULL ]",
         "format-charging": "󰂄 [ {icon} ]",
-        "format-plugged": " [ PLUGGED ]",
-        "format-critical": "󰁹 [ WARNING ]",
+        "format-plugged": " [ {icon} ]",
+        "format-critical": "󰂃 [ {icon} ]",
         "format-alt": "󰁹 [ {capacity}/100 ]",
         "format-good": "", // An empty format will hide the module
         // "format-icons": [
